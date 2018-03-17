@@ -1,7 +1,7 @@
 import boto3
 
 
-def lamda_sendMessage(event, context):
+def lamda_sendMessage(event):
     if not (('subject' in event) and ('message' in event) and ('from' in event) and ('name' in event)):
         return {"code": 1, "message": "Must preovide all values"}
     if event['subject'] != "" and event['message'] != "" and event['from'] != "" and event['name'] != "":
