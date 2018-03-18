@@ -1,0 +1,26 @@
+---
+
+- name: install cloudwatch requisites
+  yum: name={{ item }} state=present
+  with_items:
+    - perl-Switch
+    - perl-DateTime
+    - perl-Sys-Syslog
+    - perl-LWP-Protocol-https
+
+- file:
+    path: /opt/awsscript
+    state: directory
+    mode: 0755
+
+- name: Download CloudWatchMonitoringScripts
+  get_url:
+    url: curl https://aws-cloudwatch.s3.amazonaws.com/downloads/{{ CloudWatchMonitoringScripts }}
+    dest: /tmp/{{ CloudWatchMonitoringScripts }}
+    mode: 0440
+
+- name: Unarchive CloudWatchMonitoringScripts
+  unarchive:
+    src: /tmp/{{ CloudWatchMonitoringScripts }}
+    dest: /opt/awsscript
+    remote_src: yes
