@@ -1,0 +1,27 @@
+---
+
+- name: install mysql-server and deps
+  apt: name={{ item }} state=present
+  with_items:
+   - mysql-server
+   - python-mysqldb
+
+- name: copy custom my.cnf
+  copy: src=../templates/my.cnf dest=/etc/mysql/my.cnf owner=root group=root mode=0644
+
+- name: copy custom root pwd my.cnf
+  template: src=../templates/.my.cnf dest=/root/.my.cnf owner=root group=root mode=0644
+
+- name: update root pwd
+  mysql_user: name=root host="{{ item }}" password="{{ mysql_root_pass }}" login_user=root login_password="{{ mysql_root_pass }}" check_implicit_admin=yes priv="*.*:ALL,GRANT"
+  with_items:
+   - "{{ ansible_hostname }}"
+   - 127.0.0.1
+   - ::1
+   - localhost 
+   - "%"
+  notify:
+   - Restart Mysql
+
+- name: start mysql
+  service: name=mysql state=started

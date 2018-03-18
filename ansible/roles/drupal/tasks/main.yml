@@ -1,0 +1,22 @@
+---
+
+- name: install drush
+  get_url: url=http://files.drush.org/drush.phar dest=/usr/local/bin/drush mode=0755
+
+- name: install drupal
+  shell: drush dl drupal-7 --drupal-project-rename=drupal
+  args:
+    chdir: /var/www/html/
+    creates: /var/www/html/drupal/
+
+- name: create drupal files dir
+  shell: "mkdir files && chown www-data:www-data files" 
+  args:
+    chdir: /var/www/html/drupal/sites/default/
+    creates: /var/www/html/drupal/sites/default/files
+
+- name: copy drupal default settings
+  shell: "cp default.settings.php settings.php && chown www-data:www-data settings.php" 
+  args:
+    chdir: /var/www/html/drupal/sites/default/
+    creates: /var/www/html/drupal/sites/default/settings.php

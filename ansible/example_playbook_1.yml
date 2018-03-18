@@ -1,0 +1,29 @@
+---
+
+# install web deps
+- hosts: web
+  roles:
+  - web
+  - drupal
+  tags:
+    - web
+
+# install mysql-client
+- hosts: web:db
+  roles:
+  - mysql-client
+  tags:
+    - mysql-client
+
+# install mysql-server
+- hosts: db
+  roles:
+  - mysql-server
+  - drupal-db
+  vars:
+    mysql_root_pass: toor
+    mysql_drupal_db: drupal
+    mysql_drupal_user: drupal
+    mysql_drupal_pass: drupal
+  tags:
+    - mysql-server

@@ -1,0 +1,18 @@
+---
+
+- name: copy custom root pwd my.cnf
+  template: src=../templates/.my.cnf dest=/root/.my.cnf owner=root group=root mode=0644
+
+- name: create db for drupal
+  mysql_db: name=drupal state=present login_user=root login_password="{{ mysql_root_pass }}" collation=utf8mb4_unicode_ci encoding=utf8mb4
+
+- name: create user for drupal 
+  mysql_user: name="{{ mysql_drupal_user }}" host="{{ item }}" password="{{ mysql_drupal_pass }}" login_user=root login_password="{{ mysql_root_pass }}" priv="{{ mysql_drupal_db }}.*:ALL"
+  with_items:
+   - "{{ ansible_hostname }}"
+   - 127.0.0.1
+   - ::1
+   - localhost 
+   - "%"
+  notify:
+   - Restart Mysql
