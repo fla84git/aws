@@ -1,6 +1,6 @@
 ---
 
 # install ntp deps
-- hosts: demo
+- hosts: aws
   roles:
   - awscloudwatch
