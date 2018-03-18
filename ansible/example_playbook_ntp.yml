@@ -1,6 +1,6 @@
 ---
 
-# install web deps
+# install ntp deps
 - hosts: demo
   roles:
   - ntpd
