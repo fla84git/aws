@@ -17,7 +17,7 @@
   get_url:
     url: https://aws-cloudwatch.s3.amazonaws.com/downloads/{{ CloudWatchMonitoringScripts }}
     dest: /tmp/{{ CloudWatchMonitoringScripts }}
-    mode: 0440
+    mode: 0655
 
 - name: Unarchive CloudWatchMonitoringScripts
   unarchive:
