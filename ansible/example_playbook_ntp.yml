@@ -1,0 +1,6 @@
+---
+
+# install web deps
+- hosts: demo
+  roles:
+  - ntpd
