@@ -1,7 +1,7 @@
 ---
 
-- name: install ntpd and deps
+- name: install
   yum: name={{ item }} state=present
   with_items:
    - ntp
-   - nttpd
+   - httpd
