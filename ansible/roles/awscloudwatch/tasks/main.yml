@@ -15,12 +15,12 @@
 
 - name: Download CloudWatchMonitoringScripts
   get_url:
-    url: curl https://aws-cloudwatch.s3.amazonaws.com/downloads/{{ CloudWatchMonitoringScripts }}
-    dest: /tmp/{{ CloudWatchMonitoringScripts }}
+    url: curl https://aws-cloudwatch.s3.amazonaws.com/downloads/"{{ CloudWatchMonitoringScripts }}"
+    dest: /tmp/"{{ CloudWatchMonitoringScripts }}"
     mode: 0440
 
 - name: Unarchive CloudWatchMonitoringScripts
   unarchive:
-    src: /tmp/{{ CloudWatchMonitoringScripts }}
+    src: /tmp/"{{ CloudWatchMonitoringScripts }}"
     dest: /opt/awsscript
     remote_src: yes
