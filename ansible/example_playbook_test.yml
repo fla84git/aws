@@ -3,4 +3,4 @@
 # install ntp deps
 - hosts: demo
   roles:
-  - ntpd
+  - java
